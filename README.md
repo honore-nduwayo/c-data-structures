@@ -25,7 +25,7 @@ match), get by index, length, print, destroy.
   Removing a value that is not there returns `0` and changes nothing.
 - `list_push_back` walks the whole list, so it is O(n). Keeping a pointer
   to the last node would make it O(1); I left that out to keep v1 simple.
-
+ -M 
 ### Build and test
 ```
 cd linked_list
@@ -41,4 +41,5 @@ position, remove a missing value, remove from an empty list, duplicate
 values, reuse after emptying, and 1000 nodes created then destroyed.
 
 ### What I learned
-malloc is very crucial because when building programs, C allocates memory to the variables, functins, and other thing created and when we want to use them back, C creates a copy of them which is another memory taken hence using pointers also becomes crucial for malloc
+
+Building a linked list taught me why malloc matters. Ordinary variables disappear when a function returns, but memory from malloc stays until I call free, so a list can keep growing. Pointers are how the boxes find each other. The hard part was ordering: if I rewire pointers in the wrong order I lose the rest of the list, and if I forget free the program leaks. Running leaks and AddressSanitizer showed me that “it works” and “it has no memory errors” are different things
